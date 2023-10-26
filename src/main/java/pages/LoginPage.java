@@ -29,8 +29,6 @@ public class LoginPage extends Helper {
         clickElement(loginButton);
         userName.sendKeys(LOGIN);
         userPassword.sendKeys(PASSWORD);
-//        userName.sendKeys("ceyogo9446@bitvoo.com");
-//        userPassword.sendKeys("Ceyogo9446!");
         clickElement(submitLogin);
         return new MyAccountPage(driver);
     }
