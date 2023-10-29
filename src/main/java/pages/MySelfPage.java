@@ -12,11 +12,10 @@ import waiters.Waiters;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 
 @Getter
-public class MySelfPage extends Helper {
+public class MySelfPage extends AbsPage {
     Faker faker = new Faker();
     Waiters waiters;
 

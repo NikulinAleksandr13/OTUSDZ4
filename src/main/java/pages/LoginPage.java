@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import waiters.Waiters;
 
-public class LoginPage extends Helper {
+public class LoginPage extends AbsPage {
     Waiters waiters;
     private final String LOGIN = System.getProperty("login");
     private final String PASSWORD = System.getProperty("password");

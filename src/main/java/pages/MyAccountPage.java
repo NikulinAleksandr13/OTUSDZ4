@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import waiters.Waiters;
 
 
-public class MyAccountPage extends Helper {
+public class MyAccountPage extends AbsPage {
     private Waiters waiters;
     public MyAccountPage(WebDriver driver) {
         super(driver);

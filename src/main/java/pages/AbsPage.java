@@ -5,14 +5,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 
-import java.util.List;
 import java.util.Random;
 
-public class Helper {
+public abstract class AbsPage {
     protected final WebDriver driver;
     private Random random = new Random();
     private final Actions actions;
-    public Helper(WebDriver driver) {
+    public AbsPage(WebDriver driver) {
         this.driver = driver;
         this.actions = new Actions(driver);
     }
