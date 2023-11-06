@@ -3,16 +3,12 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import waiters.Waiters;
 
 
-public class MyAccountPage extends AbsPage {
-    private Waiters waiters;
+public class MyAccountPage extends AbsBasePage {
+
     public MyAccountPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver, this);
-        waiters = new Waiters(driver);
     }
 
     @FindBy(xpath ="//span[@class = 'sc-199a3eq-0 fJMWHf']")
@@ -21,11 +17,11 @@ public class MyAccountPage extends AbsPage {
     private WebElement myProfile;
 
 
-        public MySelfPage goToMySelf() {
+        public void goToMySelf() {
             waiters.waitElementVisible(nameLogin);
-            moveToElement(nameLogin);
+            actions.moveToElement(nameLogin).build().perform();
             waiters.waitElementVisible(myProfile);
             moveAndClick(myProfile);
-            return new MySelfPage(driver);
+            new MySelfPage(driver);
         }
 }

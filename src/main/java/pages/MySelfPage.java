@@ -1,64 +1,39 @@
 package pages;
 
-import com.github.javafaker.Faker;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import pages.selectorData.NameCityData;
+import pages.selectorData.NameCountryData;
+import pages.selectorData.NameEnglishLevelData;
+import pages.selectorData.NameFieldData;
 import utils.DataUtils;
-import waiters.Waiters;
-
+import org.testng.Assert;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 
 
 @Getter
-public class MySelfPage extends AbsPage {
-    Faker faker = new Faker();
-    Waiters waiters;
+public class MySelfPage extends AbsBasePage {
 
     public MySelfPage(WebDriver driver) {
         super(driver);
-        this.waiters = new Waiters(driver);
-        PageFactory.initElements(driver, this);
     }
 
-    @FindBy(css = "#id_fname")
-    private WebElement name;
-    @FindBy(css = "#id_fname_latin")
-    private WebElement nameLatin;
-    @FindBy(css = "#id_lname")
-    private WebElement lastName;
-    @FindBy(css = "#id_lname_latin")
-    private WebElement lastNameLatin;
-    @FindBy(css = "#id_blog_name")
-    private WebElement nameBlog;
     @FindBy(css = "[name = date_of_birth]")
     private WebElement birthday;
 
-    private String localDate = LocalDate.of(1998, Month.JULY, 12).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    private final String localDate = LocalDate.of(1998, Month.JULY, 12).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
     // Основная информация
     @FindBy(xpath = "//input[@name= 'country']/following::div[1]")
     private WebElement countryField;
-    @FindBy(xpath = "//button[contains(@title,'Республика Беларусь')]")
-    private WebElement country;
-    @FindBy(xpath = "(//div[@class = 'input input_full lk-cv-block__input lk-cv-block__input_fake lk-cv-block__input_select-fake js-custom-select-presentation'])[1]")
-    private WebElement countryActual;
     @FindBy(xpath = "//input[@data-title= 'Город']/following::div[1]")
     private WebElement cityField;
-    @FindBy(xpath = "//button[contains(@title,'Борисов')]")
-    private WebElement city;
-    @FindBy(xpath = "(//div[@class = \"input input_full lk-cv-block__input lk-cv-block__input_fake lk-cv-block__input_select-fake js-custom-select-presentation\"])[2]")
-    private WebElement cityActual;
     @FindBy(xpath = "//input[@data-title= 'Уровень знания английского языка']/following::div[1]")
     private WebElement englishLevelField;
-    @FindBy(xpath = "//button[contains(@title,'Средний')]")
-    private WebElement englishLevel;
-    @FindBy(xpath = "(//div[@class = \"input input_full lk-cv-block__input lk-cv-block__input_fake lk-cv-block__input_select-fake js-custom-select-presentation\"])[3]")
-    private WebElement englishLevelActual;
     @FindBy(css = "#id_ready_to_relocate_0")
     private WebElement readyToRelocateNo;
     @FindBy(xpath = "//span[contains(text(), 'Нет')]")
@@ -94,16 +69,10 @@ public class MySelfPage extends AbsPage {
     private WebElement contactField;
 
     // Другое
-    @FindBy(css = "#id_gender")
-    private WebElement genderField;
     @FindBy(xpath = "//option[contains(@value, 'm')]")
     private WebElement gender;
-    @FindBy(xpath = "(//div[@class = 'select select_full'])[1]")
+    @FindBy(xpath = "//div[@class = 'select select_full']/select[@name='gender']")
     private WebElement genderActual;
-    @FindBy(css = "#id_company")
-    private WebElement company;
-    @FindBy(css = "#id_work")
-    private WebElement position;
 
     // Опыт разработки
     @FindBy(css = ".experience-add.js-formset-add")
@@ -112,77 +81,71 @@ public class MySelfPage extends AbsPage {
     private WebElement languageDevelopField;
     @FindBy(xpath = "//option[contains(@value, '10')]")
     private WebElement languageDevelop;
-    @FindBy(xpath = "(//div[@class = 'select select_full'])[2]")
+    @FindBy(xpath = "//div[@class = 'select select_full']/select[@name='experience-0-experience']")
     private WebElement languageDevelopActual;
     @FindBy(css = "#id_experience-0-level")
     private WebElement timeDevelopField;
     @FindBy(xpath = "//option[contains(text(), 'Только начал')]")
     private WebElement timeDevelop;
-    @FindBy(xpath = "(//div[@class = 'select select_full'])[3]")
+    @FindBy(xpath = "//div[@class = 'select select_full']/select[@name='experience-0-level']")
     private WebElement timeDevelopActual;
 
     // Кнопка сохранения
     @FindBy(xpath = "//button[@title = 'Сохранить и заполнить позже']")
     private WebElement saveButton;
 
-    // Адреса страниц для проверки
-    String UrlPage = "https://otus.ru/lk/biography/personal/";
-    String saveUrl = "https://otus.ru/lk/biography/cv/";
 
 
     public void sendAllFields() {
-        clearAndSend(name, DataUtils.fakerName);
-        clearAndSend(nameLatin, DataUtils.fakerNameLatin);
-        clearAndSend(lastName, DataUtils.fakerLastName);
-        clearAndSend(lastNameLatin, DataUtils.fakerLastNameLatin);
-        clearAndSend(nameBlog, DataUtils.fakerNameBlog);
+        clearAndSend(setSelector(NameFieldData.FNAME.getName()), DataUtils.fakerName);
+        clearAndSend(setSelector(NameFieldData.FNAME_LATIN.getName()), DataUtils.fakerNameLatin);
+        clearAndSend(setSelector(NameFieldData.LNAME.getName()), DataUtils.fakerLastName);
+        clearAndSend(setSelector(NameFieldData.LNAME_LATIN.getName()), DataUtils.fakerLastNameLatin);
+        clearAndSend(setSelector(NameFieldData.BLOG_NAME.getName()), DataUtils.fakerNameBlog);
         clearAndSend(birthday, localDate);
 
         //  Основная информация
-        clickElement(countryField);
-        waiters.waitElementVisible(country);
-        clickElement(country);
-        waiters.waitElementVisible(city);
-        clickElement(cityField);
-        clickElement(city);
-        clickElement(englishLevelField);
-        waiters.waitElementVisible(englishLevel);
-        clickElement(englishLevel);
+        countryField.click();
+        waiters.waitElementVisible(setLocator(NameCountryData.BELARUSSIA.getName()));
+        setLocator(NameCountryData.BELARUSSIA.getName()).click();
+        cityField.click();
+        waiters.waitElementVisible(setLocator(NameCityData.BORISOV.getName()));
+        setLocator(NameCityData.BORISOV.getName()).click();
+        englishLevelField.click();
+        waiters.waitElementVisible(setLocator(NameEnglishLevelData.Beginner.getName()));
+        setLocator(NameEnglishLevelData.Beginner.getName()).click();
         choiceRadioButton();
         clickCheckBox();
 
         // Контактная информация
-        clickElement(addButton);
+        addButton.click();
+        listContactField.click();
         waiters.waitElementVisible(listContact1);
-        clickElement(listContactField);
-        clickElement(listContact1);
+        listContact1.click();
         clearAndSend(contactField, DataUtils.fakerContact1);
-        clickElement(addButton);
+        addButton.click();
+        listContactField.click();
         waiters.waitElementVisible(listContact2);
-        clickElement(listContactField);
-        clickElement(listContact2);
+        listContact2.click();
         clearAndSend(contactField, DataUtils.fakerContact2);
 
 
         // Другое
-        clickElement(genderField);
-        clickElement(gender);
-        clearAndSend(company, DataUtils.fakerComany);
-        clearAndSend(position, DataUtils.fakerPosition);
+        setSelector(NameFieldData.GENDER.getName()).click();
+        gender.click();
+        clearAndSend(setSelector(NameFieldData.COMPANY.getName()), DataUtils.fakerCompany);
+        clearAndSend(setSelector(NameFieldData.WORK.getName()), DataUtils.fakerPosition);
 
         // Опыт разработки
-        clickElement(addButtonDevelop);
-        clickElement(languageDevelopField);
-        clickElement(languageDevelop);
-        clickElement(timeDevelopField);
-        clickElement(timeDevelop);
+        addButtonDevelop.click();
+        languageDevelopField.click();
+        languageDevelop.click();
+        timeDevelopField.click();
+        timeDevelop.click();
 
+        //Кнопка сохранения
+        saveButton.click();
     }
-
-    public void savePage() {
-        clickElement(saveButton);
-    }
-
 
     public void choiceRadioButton() {
         WebElement[] arrayRadioButton = {readyToRelocateNo, readyToRelocateYes};
@@ -192,13 +155,12 @@ public class MySelfPage extends AbsPage {
             System.out.println("Радиобаттон уже был выбран");
         } else {
             if (element == readyToRelocateNo) {
-                clickElement(readyToRelocateNoClick);
+                readyToRelocateNoClick.click();
             } else {
-                clickElement(readyToRelocateYesClick);
+                readyToRelocateYesClick.click();
             }
         }
     }
-
 
     public void clickCheckBox() {
         WebElement[] arrayCheckBox = {formatJobFullday, formatJobflexible, formatJobRelocate};
@@ -208,15 +170,16 @@ public class MySelfPage extends AbsPage {
             System.out.println("Чекбокс уже выбран");
         } else {
             if (element == formatJobFullday) {
-                clickElement(formatJobFulldayClick);
+                formatJobFulldayClick.click();
             } else if (element == formatJobflexible) {
-                clickElement(formatJobflexibleClick);
+                formatJobflexibleClick.click();
             } else {
-                clickElement(formatJobRelocateClick);
+                formatJobRelocateClick.click();
             }
-
         }
+        }
+
+    public void assertField(String actual, String expected, String message) {
+        Assert.assertEquals(actual, expected, message);
     }
-
-
-}
+    }
