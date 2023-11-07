@@ -4,13 +4,13 @@ import lombok.Getter;
 
 @Getter
 public enum NameEnglishLevelData {
-    Beginner ("Начальный уровень (Beginner)"),
-    Elementary ("Элементарный уровень (Elementary)"),
-    Pre_Intermediate ("Ниже среднего (Pre-Intermediate)"),
-    Intermediate ("Средний (Intermediate)"),
-    Upper_Intermediate ("Выше среднего (Upper Intermediate)"),
-    Advanced ("Продвинутый (Advanced)"),
-    Mastery ("Супер продвинутый (Mastery)");
+    BEGINNER ("Начальный уровень (Beginner)"),
+    ELEMENTARY ("Элементарный уровень (Elementary)"),
+    PRE_INTERMEDIATE ("Ниже среднего (Pre-Intermediate)"),
+    INTERMEDIATE ("Средний (Intermediate)"),
+    UPPER_INTERMEDIATE ("Выше среднего (Upper Intermediate)"),
+    ADVANCED ("Продвинутый (Advanced)"),
+    MASTERY ("Супер продвинутый (Mastery)");
 
     private String name;
 

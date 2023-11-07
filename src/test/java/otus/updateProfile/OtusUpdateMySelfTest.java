@@ -28,7 +28,7 @@ public class OtusUpdateMySelfTest {
 
     @BeforeMethod
     public void init() {
-        driver = new WebDriverFactory().getDriver(BrowserNameData.FIREFOX);
+        driver = new WebDriverFactory().getDriver(BrowserNameData.CHROME);
         loginPage = new LoginPage(driver);
         myAccountPage = new MyAccountPage(driver);
         mySelfPage = new MySelfPage(driver);
@@ -58,7 +58,7 @@ public class OtusUpdateMySelfTest {
         driver.quit();
 
         // Заново зайти что бы проверить содержимое
-        driver = new WebDriverFactory().getDriver(BrowserNameData.FIREFOX);
+        driver = new WebDriverFactory().getDriver(BrowserNameData.CHROME);
         startPage = new StartPage(driver);
         loginPage = new LoginPage(driver);
         myAccountPage = new MyAccountPage(driver);
@@ -85,7 +85,7 @@ public class OtusUpdateMySelfTest {
 ////        // основная информация
         mySelfPage.assertField(mySelfPage.setLocator(NameCountryData.BELARUSSIA.getName()).getAttribute("title"), NameCountryData.BELARUSSIA.getName(), "Страна не совпадает");
         mySelfPage.assertField(mySelfPage.setLocator(NameCityData.MINSK.getName()).getAttribute("title"), NameCityData.MINSK.getName(), "Город не совпадает");
-        mySelfPage.assertField(mySelfPage.setLocator(NameEnglishLevelData.Beginner.getName()).getAttribute("title"), NameEnglishLevelData.Beginner.getName(), "Уровень английского не совпадает");
+        mySelfPage.assertField(mySelfPage.setLocator(NameEnglishLevelData.BEGINNER.getName()).getAttribute("title"), NameEnglishLevelData.BEGINNER.getName(), "Уровень английского не совпадает");
 
 
 ////        // другое

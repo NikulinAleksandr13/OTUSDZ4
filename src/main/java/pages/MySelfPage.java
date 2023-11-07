@@ -112,8 +112,8 @@ public class MySelfPage extends AbsBasePage {
         waiters.waitElementVisible(setLocator(NameCityData.BORISOV.getName()));
         setLocator(NameCityData.BORISOV.getName()).click();
         englishLevelField.click();
-        waiters.waitElementVisible(setLocator(NameEnglishLevelData.Beginner.getName()));
-        setLocator(NameEnglishLevelData.Beginner.getName()).click();
+        waiters.waitElementVisible(setLocator(NameEnglishLevelData.BEGINNER.getName()));
+        setLocator(NameEnglishLevelData.BEGINNER.getName()).click();
         choiceRadioButton();
         clickCheckBox();
 
