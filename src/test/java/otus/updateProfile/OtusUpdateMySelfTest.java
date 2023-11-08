@@ -28,7 +28,7 @@ public class OtusUpdateMySelfTest {
 
     @BeforeMethod
     public void init() {
-        driver = new WebDriverFactory().getDriver(BrowserNameData.CHROME);
+        driver = new WebDriverFactory().getDriver(BrowserNameData.FIREFOX);
         loginPage = new LoginPage(driver);
         myAccountPage = new MyAccountPage(driver);
         mySelfPage = new MySelfPage(driver);
@@ -58,7 +58,7 @@ public class OtusUpdateMySelfTest {
         driver.quit();
 
         // Заново зайти что бы проверить содержимое
-        driver = new WebDriverFactory().getDriver(BrowserNameData.CHROME);
+        driver = new WebDriverFactory().getDriver(BrowserNameData.FIREFOX);
         startPage = new StartPage(driver);
         loginPage = new LoginPage(driver);
         myAccountPage = new MyAccountPage(driver);
@@ -92,6 +92,9 @@ public class OtusUpdateMySelfTest {
         mySelfPage.assertField(mySelfPage.setSelector(NameFieldData.COMPANY.getName()).getAttribute("value"), DataUtils.fakerCompany, "Компания не совпадает");
         mySelfPage.assertField(mySelfPage.setSelector(NameFieldData.WORK.getName()).getAttribute("value"), DataUtils.fakerPosition, "Должность не совпадает");
 
+        // Удаление опыта разработки
+        mySelfPage.getDeleteDevelop().click();
+        mySelfPage.getSaveButton().click();
     }
 
     @AfterMethod

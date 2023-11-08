@@ -89,6 +89,8 @@ public class MySelfPage extends AbsBasePage {
     private WebElement timeDevelop;
     @FindBy(xpath = "//div[@class = 'select select_full']/select[@name='experience-0-level']")
     private WebElement timeDevelopActual;
+    @FindBy(xpath = "(//div[@class = 'experience-row__remove ic-close js-formset-delete'])[last()]")
+    private WebElement deleteDevelop;
 
     // Кнопка сохранения
     @FindBy(xpath = "//button[@title = 'Сохранить и заполнить позже']")
